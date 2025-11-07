@@ -53,33 +53,57 @@ void Entity::attack() {
 
 bool Entity::isTouchingLeft(Tile t) {
     if (velocity.x>0) {
-        if (position.x+texSize.x/2+velocity.x>t.position.x-t.texSize.x/2 && position.x<t.position.x-t.texSize.x/2) {}
-        return true;
+        if (position.x+texSize.x/2+velocity.x>t.position.x-t.texSize.x/2 && position.x<t.position.x-t.texSize.x/2 && (position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2)) {
+            return true;
+        }
     }
     return false;
 }
 
 bool Entity::isTouchingRight(Tile t) {
-    if () {
-        return true;
+    if (velocity.x<0) {
+        if (position.x-texSize.x/2+velocity.x<t.position.x+t.texSize.x/2 && position.x>t.position.x+t.texSize.x/2 && (position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2)) {
+            return true;
+        }
     }
     return false;
 }
 
 bool Entity::isTouchingTop(Tile t) {
-    if () {
-        return true;
+    if (velocity.y<0) {
+        if (position.y>t.position.y+t.texSize.y/2 && position.y-texSize.y/2+velocity.y<t.position.y+t.texSize.y/2 && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)) {
+            return true;
+        }
     }
     return false;
 }
 
 bool Entity::isTouchingBottom(Tile t) {
-    if () {
-        return true;
+    if (velocity.y>=0) {
+        if (position.y+texSize.y/2+velocity.y>t.position.y-t.texSize.y/2 && position.y<t.position.y-t.texSize.y/2 && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)){
+            return true;
+        }
     }
     return false;
 }
 
 void Entity::checkCollision(Tile t) {
+    if (isTouchingLeft(t)) {
+        position=sf::Vector2f(t.position.x-t.texSize.x/2-texSize.x/2, position.y);
+        velocity=sf::Vector2f(0, velocity.y);
+    }
+    if (isTouchingRight(t)) {
+        position=sf::Vector2f(t.position.x+t.texSize.x/2+texSize.x/2, position.y);
+        velocity=sf::Vector2f(0, velocity.y);
+    }
+    if (isTouchingBottom(t)) {
+        position=sf::Vector2f(position.x, t.position.y-t.texSize.y/2-texSize.y/2);
+        velocity=sf::Vector2f(velocity.x, 0);
+        isGrounded=true;
+    }
+    if (isTouchingTop(t)) {
+        position=sf::Vector2f(position.x, t.position.y+t.texSize.y/2+texSize.y/2);
+        velocity=sf::Vector2f(velocity.x, 0);
+    }
 
 }

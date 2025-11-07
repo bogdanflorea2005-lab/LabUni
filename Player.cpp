@@ -14,12 +14,16 @@ void Player::drawPlayer(sf::RenderWindow &window) {
 
 void Player::movement() {
     gravity();
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==0) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==0) {
         moveRight();
-    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==0) {
+    }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==0) {
         moveLeft();
     }else {
         stopMovement();
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)==1 && isGrounded==true) {
+        jump();
     }
 }
 

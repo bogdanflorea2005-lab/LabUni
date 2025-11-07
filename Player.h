@@ -19,6 +19,10 @@ public:
         position.y=y;
     }
 
+    bool getDead() {
+        return isDead;
+    }
+
     void drawPlayer(sf::RenderWindow& window);
 
     void movement();

@@ -23,7 +23,7 @@ public:
 
     void drawEnemy(sf::RenderWindow &window);
 
-    void seekPlayer(Player p);
+    void seekPlayer(Player& p);
 
 
 };
