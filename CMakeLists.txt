@@ -69,6 +69,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Player.h
         Enemy.cpp
         Enemy.h
+        Tile.cpp
+        Tile.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

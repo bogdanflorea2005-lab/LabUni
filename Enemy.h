@@ -8,6 +8,8 @@
 #include "SFML/Graphics.hpp"
 
 
+class Player;
+
 class Enemy: public Entity {
 private:
 
@@ -20,6 +22,8 @@ public:
     }
 
     void drawEnemy(sf::RenderWindow &window);
+
+    void seekPlayer(Player p);
 
 
 };

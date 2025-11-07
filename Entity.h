@@ -9,6 +9,8 @@
 #include "SFML/Audio.hpp"
 
 
+class Tile;
+
 class Entity {
 protected:
     int direction=0;
@@ -29,6 +31,14 @@ protected:
     void stopMovement();
 
     void attack();
+
+    bool isTouchingLeft(Tile t);
+    bool isTouchingRight(Tile t);
+    bool isTouchingTop(Tile t);
+    bool isTouchingBottom(Tile t);
+public:
+    void checkCollision(Tile t);
+    friend class Enemy;
 };
 
 

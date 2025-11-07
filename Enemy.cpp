@@ -4,6 +4,8 @@
 
 #include "Enemy.h"
 
+#include "Player.h"
+
 void Enemy::drawEnemy(sf::RenderWindow &window) {
     sf::Sprite sprite(texture);
     sprite.setTexture(texture);
@@ -11,5 +13,20 @@ void Enemy::drawEnemy(sf::RenderWindow &window) {
     sprite.setPosition(position);
     sprite.setScale(sf::Vector2f(1, 1));
     window.draw(sprite);
+}
+
+void Enemy::seekPlayer(Player p) {
+    gravity();
+    float distance;
+    distance = abs(p.position.x - this->position.x);
+    if (position.x<p.position.x && distance >30) {
+        moveRight();
+    }else if (position.x>p.position.x && distance >30) {
+        moveLeft();
+    }
+
+    if (distance<40 && abs(position.y-p.position.y)<40) {
+        isDead = true;
+    }
 }
 

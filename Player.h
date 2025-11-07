@@ -22,6 +22,8 @@ public:
     void drawPlayer(sf::RenderWindow& window);
 
     void movement();
+
+    friend class Enemy;
 };
 
 

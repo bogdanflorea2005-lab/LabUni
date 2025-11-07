@@ -4,6 +4,8 @@
 
 #include "Entity.h"
 
+#include "Tile.h"
+
 void Entity::moveLeft() {
     velocity.x += 0.25;
     if (velocity.x>=6) {
@@ -47,4 +49,37 @@ void Entity::stopMovement() {
 
 void Entity::attack() {
     //will add sth once I make a "Projectile class"
+}
+
+bool Entity::isTouchingLeft(Tile t) {
+    if (velocity.x>0) {
+        if (position.x+texSize.x/2+velocity.x>t.position.x-t.texSize.x/2 && position.x<t.position.x-t.texSize.x/2) {}
+        return true;
+    }
+    return false;
+}
+
+bool Entity::isTouchingRight(Tile t) {
+    if () {
+        return true;
+    }
+    return false;
+}
+
+bool Entity::isTouchingTop(Tile t) {
+    if () {
+        return true;
+    }
+    return false;
+}
+
+bool Entity::isTouchingBottom(Tile t) {
+    if () {
+        return true;
+    }
+    return false;
+}
+
+void Entity::checkCollision(Tile t) {
+
 }
