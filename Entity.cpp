@@ -4,6 +4,8 @@
 
 #include "Entity.h"
 
+#include <iostream>
+
 #include "Tile.h"
 
 void Entity::moveLeft() {
@@ -32,9 +34,14 @@ void Entity::jump() {
 }
 
 void Entity::gravity() {
-    velocity.y+=0.25;
-    if (velocity.y>=5) {
-        velocity.y = 5;
+    if (!isGrounded) {
+        airTime++;
+    }else {
+        airTime=0;
+    }
+    velocity.y+=0.01*airTime;
+    if (velocity.y>=15) {
+        velocity.y = 15;
     }
     position.y+=velocity.y;
 }
@@ -49,6 +56,12 @@ void Entity::stopMovement() {
 
 void Entity::attack() {
     //will add sth once I make a "Projectile class"
+}
+
+void Entity::setGrounded(Tile t) {
+    if (velocity.y>=1) {
+        isGrounded=false;
+    }
 }
 
 bool Entity::isTouchingLeft(Tile t) {
@@ -88,6 +101,7 @@ bool Entity::isTouchingBottom(Tile t) {
 }
 
 void Entity::checkCollision(Tile t) {
+    setGrounded(t);
     if (isTouchingLeft(t)) {
         position=sf::Vector2f(t.position.x-t.texSize.x/2-texSize.x/2, position.y);
         velocity=sf::Vector2f(0, velocity.y);
@@ -101,6 +115,8 @@ void Entity::checkCollision(Tile t) {
         velocity=sf::Vector2f(velocity.x, 0);
         isGrounded=true;
     }
+    //std::cout<<"isTB: "<<isTouchingBottom(t)<<std::endl;
+
     if (isTouchingTop(t)) {
         position=sf::Vector2f(position.x, t.position.y+t.texSize.y/2+texSize.y/2);
         velocity=sf::Vector2f(velocity.x, 0);

@@ -4,6 +4,8 @@
 
 #include "Player.h"
 
+#include <iostream>
+
 Player::Player(const std::string &filePath, float x, float y) {
     texture.loadFromFile(filePath);
     texSize=texture.getSize();
@@ -20,6 +22,7 @@ void Player::drawPlayer(sf::RenderWindow &window) {
 }
 
 void Player::movement() {
+    std::cout<<"isGrounded: "<<isGrounded<<std::endl<<"yVelo: "<<velocity.y<<std::endl<<std::endl;
     gravity();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==0) {
         moveRight();
@@ -32,8 +35,6 @@ void Player::movement() {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)==1 && isGrounded==true) {
         jump();
     }
+
+
 }
-
-
-
-

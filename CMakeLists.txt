@@ -71,6 +71,8 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Enemy.h
         Tile.cpp
         Tile.h
+        Camera.cpp
+        Camera.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

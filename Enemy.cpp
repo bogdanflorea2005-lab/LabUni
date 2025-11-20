@@ -13,6 +13,22 @@ Enemy::Enemy(const std::string &filePath, float x, float y)  {
     position.y=y;
 }
 
+void Enemy::camMoveLeft(float velo) {
+    position.x-=velo;
+}
+
+void Enemy::camMoveRight(float velo) {
+    position.x-=velo;
+}
+
+void Enemy::camMoveUp(float velo) {
+    position.y-=velo;
+}
+
+void Enemy::camMoveDown(float velo) {
+    position.y-=velo;
+}
+
 void Enemy::drawEnemy(sf::RenderWindow &window) {
     sf::Sprite sprite(texture);
     sprite.setTexture(texture);

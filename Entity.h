@@ -13,7 +13,7 @@ class Tile;
 
 class Entity {
 protected:
-    int direction=0;
+    int direction=0, airTime=0;
     sf::Vector2f position;
     bool isGrounded=false, isDead=false;
     sf::Texture texture;
@@ -24,7 +24,7 @@ protected:
 
     void moveRight();
 
-    void jump();
+    virtual void jump();
 
     void gravity();
 
@@ -32,11 +32,15 @@ protected:
 
     virtual void attack();
 
+    void setGrounded(Tile t);
+
     bool isTouchingLeft(Tile t);
     bool isTouchingRight(Tile t);
     bool isTouchingTop(Tile t);
     bool isTouchingBottom(Tile t);
 public:
+    virtual ~Entity() = default;
+
     void checkCollision(Tile t);
     friend class Enemy;
 };

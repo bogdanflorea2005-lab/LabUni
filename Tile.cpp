@@ -4,6 +4,22 @@
 
 #include "Tile.h"
 
+void Tile::moveLeft(float velo) {
+    position.x-=velo;
+}
+
+void Tile::moveRight(float velo) {
+    position.x-=velo;
+}
+
+void Tile::moveUp(float velo) {
+    position.y-=velo;
+}
+
+void Tile::moveDown(float velo) {
+    position.y-=velo;
+}
+
 Tile::Tile(const std::string filePath, float x, float y){
     texture.loadFromFile(filePath);
     texSize=texture.getSize();

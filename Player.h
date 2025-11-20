@@ -10,6 +10,8 @@
 
 class Player: public Entity {
 private:
+    int spaceTimer=0;
+
 
 public:
     Player(const std::string &filePath, float x, float y);
@@ -23,6 +25,7 @@ public:
     void movement();
 
     friend class Enemy;
+    friend class Camera;
 };
 
 
