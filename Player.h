@@ -12,6 +12,7 @@ class Player: public Entity {
 private:
     int spaceTimer=0;
 
+    void jump() override;
 
 public:
     Player(const std::string &filePath, float x, float y);

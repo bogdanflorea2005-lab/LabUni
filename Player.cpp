@@ -6,6 +6,11 @@
 
 #include <iostream>
 
+void Player::jump() {
+    isGrounded=false;
+    velocity.y-=0.5;
+}
+
 Player::Player(const std::string &filePath, float x, float y) {
     texture.loadFromFile(filePath);
     texSize=texture.getSize();
@@ -31,9 +36,13 @@ void Player::movement() {
     }else {
         stopMovement();
     }
+    if (isGrounded) {
+        spaceTimer=0;
+    }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)==1 && isGrounded==true) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)==1 && (isGrounded==true || velocity.y<=0) && spaceTimer<20) {
         jump();
+        spaceTimer++;
     }
 
 

@@ -40,8 +40,8 @@ void Entity::gravity() {
         airTime=0;
     }
     velocity.y+=0.01*airTime;
-    if (velocity.y>=15) {
-        velocity.y = 15;
+    if (velocity.y>=10) {
+        velocity.y = 10;
     }
     position.y+=velocity.y;
 }
@@ -49,7 +49,7 @@ void Entity::gravity() {
 void Entity::stopMovement() {
     direction=velocity.x/abs(velocity.x);
     if (abs(velocity.x)>0) {
-        velocity.x -= 0.25*direction;
+        velocity.x -= 0.5*direction;
     }
     position.x+=velocity.x;
 }

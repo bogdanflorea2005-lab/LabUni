@@ -9,6 +9,8 @@
 
 
         /**File format example for loading a room:
+         *
+         *CHECK GAME MAKER'S TOOLKIT ON YT!!!!!!!!!!!!!!!!!!
 
 Might not actually need a whole class for this, just a function that loads everything.
 1:
