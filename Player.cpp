@@ -8,7 +8,7 @@
 
 void Player::jump() {
     isGrounded=false;
-    velocity.y-=0.5;
+    velocity.y-=2;
 }
 
 Player::Player(const std::string &filePath, float x, float y) {
@@ -27,7 +27,7 @@ void Player::drawPlayer(sf::RenderWindow &window) {
 }
 
 void Player::movement() {
-    std::cout<<"isGrounded: "<<isGrounded<<std::endl<<"yVelo: "<<velocity.y<<std::endl<<std::endl;
+
     gravity();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==0) {
         moveRight();
@@ -40,7 +40,7 @@ void Player::movement() {
         spaceTimer=0;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)==1 && (isGrounded==true || velocity.y<=0) && spaceTimer<20) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)==1 && (isGrounded==true || velocity.y<=0) && spaceTimer<15) {
         jump();
         spaceTimer++;
     }

@@ -20,23 +20,26 @@ void Tile::moveDown(float velo) {
     position.y-=velo;
 }
 
-Tile::Tile(const std::string filePath, float x, float y){
+Tile::Tile(const std::string filePath, float x, float y, int tileID){
     texture.loadFromFile(filePath);
     texSize=texture.getSize();
     position.x = x;
     position.y = y;
+    this->tileID=tileID;
 }
 
-Tile::Tile(const Tile &t)  {
+Tile::Tile(const Tile &t, int tileID)  {
     position = t.position;
     texture = t.texture;
     texSize = t.texSize;
+    this->tileID=tileID;
 }
 
-Tile::Tile(const Tile &t, float x, float y) {
+Tile::Tile(const Tile &t, float x, float y, int tileID) {
     position=sf::Vector2f(x, y);
     texture=t.texture;
     texSize=texture.getSize();
+    this->tileID=tileID;
 }
 
 void Tile::drawTile(sf::RenderWindow &window) {

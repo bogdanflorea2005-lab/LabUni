@@ -8,9 +8,10 @@
 #include "Tile.h"
 
 
-        /**File format example for loading a room:
-         *
-         *CHECK GAME MAKER'S TOOLKIT ON YT!!!!!!!!!!!!!!!!!!
+/**
+CHECK GAME MAKER'S TOOLKIT ON YT!!!!!!!!!!!!!!!!!!
+
+File format example for loading a room:
 
 Might not actually need a whole class for this, just a function that loads everything.
 1:
@@ -59,11 +60,11 @@ int main()
 
     Player p(filePath1, window.getSize().x/2, window.getSize().y/2);
     Camera c(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
-    Tile tile(tilePath, 300, 500);
-    Tile tile2(tile, 1100, 450);
-    Tile tile3(tilePath2, 450, 850);
-    Tile tile4(tile3, 450+555, 850);
-    Tile tile5(tile4, 450+555+555, 850);
+    Tile tile(tilePath, 300, 500, 1);
+    Tile tile2(tile, 1100, 450, 2);
+    Tile tile3(tilePath2, 450, 850, 3);
+    Tile tile4(tile3, 450+555, 850, 4);
+    Tile tile5(tile4, 450+555+555, 650, 5);
     //Enemy e(enemyPath, 1200, 300);
 
 

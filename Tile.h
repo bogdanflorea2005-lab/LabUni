@@ -11,16 +11,17 @@ class Tile: public Entity{
 private:
 
 public:
+    int tileID=0;
     void moveLeft(float velo);
     void moveRight(float velo);
     void moveUp(float velo);
     void moveDown(float velo);
 
-    Tile(const std::string filePath, float x, float y);
+    Tile(const std::string filePath, float x, float y, int tileID);
 
-    Tile(const Tile& t);
+    Tile(const Tile& t, int tileID);
 
-    Tile(const Tile& t, float x, float y);
+    Tile(const Tile& t, float x, float y, int tileID);
 
     void drawTile(sf::RenderWindow& window);
 

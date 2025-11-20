@@ -48,6 +48,12 @@ bool Camera::isTouchingRight(Player &p) {
     return false;
 }
 
+bool Camera::isNotCentered(Player &p) {
+    if (p.position!=origin && p.velocity.y!=0) {
+        return true;
+    }
+    return false;
+}
 
 
 void Camera::playerReachedBoundary(Player &p, Tile& t) {
@@ -66,6 +72,10 @@ void Camera::playerReachedBoundary(Player &p, Tile& t) {
     if (isTouchingRight(p)) {
         t.moveRight(p.velocity.x);
         p.position.x=origin.x+size.x/2-p.texSize.x/2;
+    }
+
+    if (isNotCentered(p)) {
+
     }
 }
 

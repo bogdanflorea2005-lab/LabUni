@@ -28,20 +28,19 @@ void Entity::jump() {
     if (isGrounded==true) {
         isGrounded = false;
         velocity.y=0;
-        velocity.y -=10;
+        velocity.y -=20;
         position.y+=velocity.y;
     }
 }
 
 void Entity::gravity() {
-    if (!isGrounded) {
-        airTime++;
-    }else {
+    if (isGrounded) {
         airTime=0;
     }
-    velocity.y+=0.01*airTime;
-    if (velocity.y>=10) {
-        velocity.y = 10;
+    airTime++;
+    velocity.y+=0.75;
+    if (velocity.y>=12) {
+        velocity.y = 12;
     }
     position.y+=velocity.y;
 }
@@ -49,19 +48,13 @@ void Entity::gravity() {
 void Entity::stopMovement() {
     direction=velocity.x/abs(velocity.x);
     if (abs(velocity.x)>0) {
-        velocity.x -= 0.5*direction;
+        velocity.x -= 0.25*direction;
     }
     position.x+=velocity.x;
 }
 
 void Entity::attack() {
     //will add sth once I make a "Projectile class"
-}
-
-void Entity::setGrounded(Tile t) {
-    if (velocity.y>=1) {
-        isGrounded=false;
-    }
 }
 
 bool Entity::isTouchingLeft(Tile t) {
@@ -101,25 +94,33 @@ bool Entity::isTouchingBottom(Tile t) {
 }
 
 void Entity::checkCollision(Tile t) {
-    setGrounded(t);
-    if (isTouchingLeft(t)) {
-        position=sf::Vector2f(t.position.x-t.texSize.x/2-texSize.x/2, position.y);
-        velocity=sf::Vector2f(0, velocity.y);
+    if(position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2) {
+        if (isTouchingLeft(t)) {
+            position=sf::Vector2f(t.position.x-t.texSize.x/2-texSize.x/2, position.y);
+            velocity=sf::Vector2f(0, velocity.y);
+        }
+        if (isTouchingRight(t)) {
+            position=sf::Vector2f(t.position.x+t.texSize.x/2+texSize.x/2, position.y);
+            velocity=sf::Vector2f(0, velocity.y);
+        }
     }
-    if (isTouchingRight(t)) {
-        position=sf::Vector2f(t.position.x+t.texSize.x/2+texSize.x/2, position.y);
-        velocity=sf::Vector2f(0, velocity.y);
-    }
-    if (isTouchingBottom(t)) {
-        position=sf::Vector2f(position.x, t.position.y-t.texSize.y/2-texSize.y/2);
+    /**
+        if there isn't a tile directly below me, isGrounded cannot be changed by checking collisions, thus, gravity() does not activate.
+    **/
+    if(position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2 && position.y+texSize.y/2>=t.position.y-t.texSize.y/2-texSize.y/2+0.01) {
+        if (isTouchingBottom(t)) {
+        position=sf::Vector2f(position.x, t.position.y-t.texSize.y/2-texSize.y/2+0.01);
         velocity=sf::Vector2f(velocity.x, 0);
         isGrounded=true;
-    }
-    //std::cout<<"isTB: "<<isTouchingBottom(t)<<std::endl;
+        }else {
+            isGrounded=false;
+        }
+        // std::cout<<"isGrounded: "<<isGrounded<<std::endl<<"yVelo: "<<velocity.y<<std::endl<<"tileID: "<<t.tileID<<std::endl<<std::endl;
+        // std::cout<<"isTB: "<<isTouchingBottom(t)<<std::endl;
 
-    if (isTouchingTop(t)) {
-        position=sf::Vector2f(position.x, t.position.y+t.texSize.y/2+texSize.y/2);
-        velocity=sf::Vector2f(velocity.x, 0);
+        if (isTouchingTop(t)) {
+            position=sf::Vector2f(position.x, t.position.y+t.texSize.y/2+texSize.y/2);
+            velocity=sf::Vector2f(velocity.x, 0.01);
+        }
     }
-
 }

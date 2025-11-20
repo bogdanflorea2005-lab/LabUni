@@ -32,7 +32,7 @@ protected:
 
     virtual void attack();
 
-    void setGrounded(Tile t);
+    void setGrounded();
 
     bool isTouchingLeft(Tile t);
     bool isTouchingRight(Tile t);

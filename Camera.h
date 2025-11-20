@@ -26,6 +26,7 @@ private:
     bool isTouchingLower(Player& p);
     bool isTouchingLeft(Player& p);
     bool isTouchingRight(Player& p);
+    bool isNotCentered(Player& p);
 
 public:
     Camera(sf::Vector2f origin);
