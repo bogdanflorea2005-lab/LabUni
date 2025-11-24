@@ -104,9 +104,7 @@ void Entity::checkCollision(Tile t) {
             velocity=sf::Vector2f(0, velocity.y);
         }
     }
-    /**
-        if there isn't a tile directly below me, isGrounded cannot be changed by checking collisions, thus, gravity() does not activate.
-    **/
+
     if(position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2 && position.y+texSize.y/2>=t.position.y-t.texSize.y/2-texSize.y/2+0.01) {
         if (isTouchingBottom(t)) {
         position=sf::Vector2f(position.x, t.position.y-t.texSize.y/2-texSize.y/2+0.01);

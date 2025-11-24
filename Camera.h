@@ -21,20 +21,22 @@ class Player;
 class Camera {
 private:
     sf::Vector2f origin;
-    const sf::Vector2u size=sf::Vector2u(300, 200);
+    const sf::Vector2u size=sf::Vector2u(300, 150);
 
-    bool isTouchingUpper(Player& p);
-    bool isTouchingLower(Player& p);
-    bool isTouchingLeft(Player& p);
-    bool isTouchingRight(Player& p);
-    bool isXCentered(const Player& p);
-    bool isYCentered(const Player& p);
+    bool isTouchingUpper(Player& p) const;
+    bool isTouchingLower(Player& p) const;
+    bool isTouchingLeft(Player& p) const;
+    bool isTouchingRight(Player& p) const;
+    bool isXCentered(const Player& p) const;
+    bool isYCentered(const Player& p) const;
 
 public:
     Camera(sf::Vector2f origin);
 
-    void playerReachedBoundary(Player& p, Tile& t);
-    void playerReachedBoundary(Player& p, Enemy& e);
+    void drawCambox(sf::RenderWindow& window, std::string texFile);
+
+    void playerReachedBoundary(Player& p, Tile& t) const;
+    void playerReachedBoundary(Player& p, Enemy& e) const;
     void centerEntity(const Player& p, Entity& e);
 
     void centerPlayer(Player &p);

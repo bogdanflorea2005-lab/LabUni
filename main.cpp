@@ -28,10 +28,10 @@ Simply add an if(roomId==ceva){[roomData]} for every room. IDK how good this is
 Maybe sth like this: https://www.reddit.com/r/gamemaker/comments/4dpi99/filling_a_room_with_objects_using_a_text_document/
 where every room has its own file (whose name will be the room's ID). This method also basically locks me to a grid, which is very limiting :\
 
-base idea for unloading an old room and loading a new one:
+base idea for unloading an old room and loading a new one:\n
 void changeRooms(Room& oldRoom, const std::string& newRoomId){\n
     playAnimation("leaveRoom", [orientation]);\n
-     oldRoom=new Room("newRoomId");\n
+    oldRoom=new Room("newRoomId");\n
     playAnimation("enterRoom", [orientation])\n
     }
 **/
@@ -50,7 +50,7 @@ void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
 
 int main()
 {
-    //for ""Room" class, consider smart pointers for deallocation
+    //for "Room" class, consider smart pointers for deallocation
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
 
@@ -59,6 +59,9 @@ int main()
     std::string tilePath2 ="Textures/placeholderTile2.png";
     std::string enemyPath = "Textures/placeholderEnemy.png";
     std::string lBozo="Textures/Lbozo.png";
+    //std::cout<<"before tile creation\n";
+    Tile tiles[5];
+    //std::cout<<"after tile creation\n";
 
     Player p(filePath1, window.getSize().x/2, window.getSize().y/2);
     Camera c(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
@@ -67,6 +70,13 @@ int main()
     Tile tile3(tilePath2, 450, 850, 3);
     Tile tile4(tile3, 450+555, 850, 4);
     Tile tile5(tile4, 450+555+555, 650, 5);
+    tiles[0]=tile;
+    tiles[1]=tile2;
+    tiles[2]=tile3;
+    tiles[3]=tile4;
+    tiles[4]=tile5;
+    //std::cout<<"after giving tile info\n";
+
     Enemy e(enemyPath, 1200, 300);
 
 
@@ -77,40 +87,56 @@ int main()
                 window.close();
 
         window.clear();
+        c.drawCambox(window, "Textures/CameraSize.png");
         p.drawPlayer(window);
+
         p.movement();
-        c.playerReachedBoundary(p, tile);
-        c.playerReachedBoundary(p, tile2);
-        c.playerReachedBoundary(p, tile3);
-        c.playerReachedBoundary(p, tile4);
-        c.playerReachedBoundary(p, tile5);
+        // c.playerReachedBoundary(p, tile);
+        // c.playerReachedBoundary(p, tile2);
+        // c.playerReachedBoundary(p, tile3);
+        // c.playerReachedBoundary(p, tile4);
+        // c.playerReachedBoundary(p, tile5);
+        //std::cout<<"reached first for\n";
+        for (int i=0; i<5; i++) {
+            c.playerReachedBoundary(p, tiles[i]);
+        }
         c.playerReachedBoundary(p, e);
-        c.centerEntity(p, tile);
-        c.centerEntity(p, tile2);
-        c.centerEntity(p, tile3);
-        c.centerEntity(p, tile4);
-        c.centerEntity(p, tile5);
+
+        // c.centerEntity(p, tile);
+        // c.centerEntity(p, tile2);
+        // c.centerEntity(p, tile3);
+        // c.centerEntity(p, tile4);
+        // c.centerEntity(p, tile5);
+        //std::cout<<"reached second for\n";
+        for (int i=0; i<5; i++) {
+            c.centerEntity(p, tiles[i]);
+        }
         c.centerEntity(p, e);
 
 
         e.drawEnemy(window);
-        e.seekPlayer(p);
-        tile.drawTile(window);
-        tile2.drawTile(window);
-        tile3.drawTile(window);
-        tile4.drawTile(window);
-        //std::cout<<tile4;
-        tile5.drawTile(window);
-        p.checkCollision(tile);
-        p.checkCollision(tile2);
-        p.checkCollision(tile3);
-        p.checkCollision(tile4);
-        p.checkCollision(tile5);
-        e.checkCollision(tile);
-        e.checkCollision(tile2);
-        e.checkCollision(tile3);
-        e.checkCollision(tile4);
-        e.checkCollision(tile5);
+        //e.seekPlayer(p);
+        //std::cout<<"reached third for\n";
+        for (int i=0; i<5; i++) {
+            tiles[i].drawTile(window);
+            p.checkCollision(tiles[i]);
+            e.checkCollision(tiles[i]);
+        }
+        // tile.drawTile(window);
+        // tile2.drawTile(window);
+        // tile3.drawTile(window);
+        // tile4.drawTile(window);
+        // tile5.drawTile(window);
+        // p.checkCollision(tile);
+        // p.checkCollision(tile2);
+        // p.checkCollision(tile3);
+        // p.checkCollision(tile4);
+        // p.checkCollision(tile5);
+        // e.checkCollision(tile);
+        // e.checkCollision(tile2);
+        // e.checkCollision(tile3);
+        // e.checkCollision(tile4);
+        // e.checkCollision(tile5);
         c.centerPlayer(p);
         if (p.getDead() == true) {
             displayImage(window, lBozo);

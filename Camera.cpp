@@ -4,6 +4,8 @@
 
 #include "Camera.h"
 
+#include <iostream>
+
 #include "Enemy.h"
 #include "Player.h"
 #include "Tile.h"
@@ -12,7 +14,18 @@ Camera::Camera(sf::Vector2f origin) {
     this->origin=origin;
 }
 
-bool Camera::isTouchingUpper(Player &p) {
+void Camera::drawCambox(sf::RenderWindow &window, const std::string texFile) {
+    sf::Texture texture;
+    texture.loadFromFile(texFile);
+    sf::Sprite sprite(texture);
+    sprite.setOrigin(sf::Vector2f(texture.getSize().x/2, texture.getSize().y/2));
+    sprite.setPosition(sf::Vector2f(960, 540));
+    //sprite.setScale(sf::Vector2f(1, 1));
+    window.draw(sprite);
+    std::cout<<"x: "<<origin.x<<"y: "<<origin.y<<std::endl;
+}
+
+bool Camera::isTouchingUpper(Player &p) const {
     if (p.velocity.y<0) {
         if (p.position.y-p.texSize.y/2+p.velocity.y<origin.y-size.y/2) {
             return true;
@@ -21,7 +34,7 @@ bool Camera::isTouchingUpper(Player &p) {
     return false;
 }
 
-bool Camera::isTouchingLower(Player &p) {
+bool Camera::isTouchingLower(Player &p) const {
     if (p.velocity.y>0) {
         if (p.position.y+p.texSize.y/2+p.velocity.y>origin.y+size.y/2) {
             return true;
@@ -30,7 +43,7 @@ bool Camera::isTouchingLower(Player &p) {
     return false;
 }
 
-bool Camera::isTouchingLeft(Player &p) {
+bool Camera::isTouchingLeft(Player &p) const {
     if (p.velocity.x<0) {
         if (p.position.x-p.texSize.x/2+p.velocity.x<origin.x-size.x/2) {
             return true;
@@ -39,7 +52,7 @@ bool Camera::isTouchingLeft(Player &p) {
     return false;
 }
 
-bool Camera::isTouchingRight(Player &p) {
+bool Camera::isTouchingRight(Player &p) const {
     if (p.velocity.x>0) {
         if (p.position.x+p.texSize.x/2+p.velocity.x>origin.x+size.x/2) {
             return true;
@@ -48,14 +61,14 @@ bool Camera::isTouchingRight(Player &p) {
     return false;
 }
 
-bool Camera::isXCentered(const Player &p) {
+bool Camera::isXCentered(const Player &p) const {
     if (p.position.x!=origin.x) {
         return false;
     }
     return true;
 }
 
-bool Camera::isYCentered(const Player &p) {
+bool Camera::isYCentered(const Player &p) const {
     if (p.position.y!=origin.y) {
         return false;
     }
@@ -63,7 +76,7 @@ bool Camera::isYCentered(const Player &p) {
 }
 
 
-void Camera::playerReachedBoundary(Player &p, Tile& t) {
+void Camera::playerReachedBoundary(Player &p, Tile& t) const {
     if (isTouchingUpper(p)) {
         t.moveUp(p.velocity.y);
         p.position.y=origin.y-size.y/2+p.texSize.y/2;
@@ -81,8 +94,11 @@ void Camera::playerReachedBoundary(Player &p, Tile& t) {
         p.position.x=origin.x+size.x/2-p.texSize.x/2;
     }
 }
-
-void Camera::playerReachedBoundary(Player &p, Enemy &e) {
+/**  /\
+     |    Can be combined since for() works in main
+    \/
+**/
+void Camera::playerReachedBoundary(Player &p, Enemy &e) const {
     if (isTouchingUpper(p)) {
         e.camMoveUp(p.velocity.y);
         p.position.y=origin.y-size.y/2+p.texSize.y/2;
@@ -104,10 +120,10 @@ void Camera::playerReachedBoundary(Player &p, Enemy &e) {
 void Camera::centerEntity(const Player &p, Entity& e) {
     sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
     if (p.velocity.x==0 && !isXCentered(p)) {
-        e.position.x-=(distance.x/125)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
+        e.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
     }
     if (p.velocity.y==0 && !isYCentered(p)) {
-        e.position.y-=(distance.y/125)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
+        e.position.y-=(distance.y/110)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
     }
 }
 
@@ -116,9 +132,9 @@ void Camera::centerEntity(const Player &p, Entity& e) {
 void Camera::centerPlayer(Player &p) {
     sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
     if (p.velocity.x==0 && !isXCentered(p)) {
-        p.position.x-=(distance.x/125)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
+        p.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
     }
-    if (p.velocity.y==0 && !isYCentered(p)) {
-        p.position.y-=(distance.y/125)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
+    if (!isYCentered(p)) {
+        p.position.y-=(distance.y/110)*((p.position.y-origin.y)/abs(p.position.y-origin.y));
     }
 }

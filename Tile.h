@@ -9,21 +9,26 @@
 
 class Tile: public Entity{
 private:
+    int tileID=0;
 
 public:
-    int tileID=0;
     void moveLeft(float velo);
     void moveRight(float velo);
     void moveUp(float velo);
     void moveDown(float velo);
 
+    Tile &operator=(Tile * tile);
+
+    Tile()=default;
+
     Tile(const std::string filePath, float x, float y, int tileID);
 
-    Tile(const Tile& t, int tileID);
+    Tile(const Tile& t);
 
     Tile(const Tile& t, float x, float y, int tileID);
 
     void drawTile(sf::RenderWindow& window);
+
 
     friend std::ostream& operator<<(std::ostream& os, const Tile& t) {
         os << t.tileID<<"\n";
