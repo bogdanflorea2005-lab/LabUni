@@ -36,6 +36,8 @@ void changeRooms(Room& oldRoom, const std::string& newRoomId){\n
     }
 **/
 
+
+
 void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
     sf::Texture texture;
     texture.loadFromFile(imagePath);
@@ -65,7 +67,7 @@ int main()
     Tile tile3(tilePath2, 450, 850, 3);
     Tile tile4(tile3, 450+555, 850, 4);
     Tile tile5(tile4, 450+555+555, 650, 5);
-    //Enemy e(enemyPath, 1200, 300);
+    Enemy e(enemyPath, 1200, 300);
 
 
     while (window.isOpen())
@@ -82,25 +84,34 @@ int main()
         c.playerReachedBoundary(p, tile3);
         c.playerReachedBoundary(p, tile4);
         c.playerReachedBoundary(p, tile5);
-        //c.playerReachedBoundary(p, e);
+        c.playerReachedBoundary(p, e);
+        c.centerEntity(p, tile);
+        c.centerEntity(p, tile2);
+        c.centerEntity(p, tile3);
+        c.centerEntity(p, tile4);
+        c.centerEntity(p, tile5);
+        c.centerEntity(p, e);
 
-        //e.drawEnemy(window);
-        //e.seekPlayer(p);
+
+        e.drawEnemy(window);
+        e.seekPlayer(p);
         tile.drawTile(window);
         tile2.drawTile(window);
         tile3.drawTile(window);
         tile4.drawTile(window);
+        //std::cout<<tile4;
         tile5.drawTile(window);
         p.checkCollision(tile);
         p.checkCollision(tile2);
         p.checkCollision(tile3);
         p.checkCollision(tile4);
         p.checkCollision(tile5);
-        // e.checkCollision(tile);
-        // e.checkCollision(tile2);
-        // e.checkCollision(tile3);
-        // e.checkCollision(tile4);
-        // e.checkCollision(tile5);
+        e.checkCollision(tile);
+        e.checkCollision(tile2);
+        e.checkCollision(tile3);
+        e.checkCollision(tile4);
+        e.checkCollision(tile5);
+        c.centerPlayer(p);
         if (p.getDead() == true) {
             displayImage(window, lBozo);
         }

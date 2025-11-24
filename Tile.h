@@ -25,7 +25,15 @@ public:
 
     void drawTile(sf::RenderWindow& window);
 
+    friend std::ostream& operator<<(std::ostream& os, const Tile& t) {
+        os << t.tileID<<"\n";
+        os << "x: "<<t.position.x << " y: "<<t.position.y<<"\n";
+        return os;
+
+    }
+
     friend class Entity;
+    friend class Camera;
 };
 
 

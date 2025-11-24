@@ -8,6 +8,7 @@
 #include "SFML/Graphics.hpp"
 
 
+class Entity;
 class Enemy;
 class Tile;
 
@@ -26,13 +27,17 @@ private:
     bool isTouchingLower(Player& p);
     bool isTouchingLeft(Player& p);
     bool isTouchingRight(Player& p);
-    bool isNotCentered(Player& p);
+    bool isXCentered(const Player& p);
+    bool isYCentered(const Player& p);
 
 public:
     Camera(sf::Vector2f origin);
 
     void playerReachedBoundary(Player& p, Tile& t);
     void playerReachedBoundary(Player& p, Enemy& e);
+    void centerEntity(const Player& p, Entity& e);
+
+    void centerPlayer(Player &p);
 };
 
 

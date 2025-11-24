@@ -43,6 +43,7 @@ public:
 
     void checkCollision(Tile t);
     friend class Enemy;
+    friend class Camera;
 };
 
 

@@ -48,11 +48,18 @@ bool Camera::isTouchingRight(Player &p) {
     return false;
 }
 
-bool Camera::isNotCentered(Player &p) {
-    if (p.position!=origin && p.velocity.y!=0) {
-        return true;
+bool Camera::isXCentered(const Player &p) {
+    if (p.position.x!=origin.x) {
+        return false;
     }
-    return false;
+    return true;
+}
+
+bool Camera::isYCentered(const Player &p) {
+    if (p.position.y!=origin.y) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -73,10 +80,6 @@ void Camera::playerReachedBoundary(Player &p, Tile& t) {
         t.moveRight(p.velocity.x);
         p.position.x=origin.x+size.x/2-p.texSize.x/2;
     }
-
-    if (isNotCentered(p)) {
-
-    }
 }
 
 void Camera::playerReachedBoundary(Player &p, Enemy &e) {
@@ -95,5 +98,27 @@ void Camera::playerReachedBoundary(Player &p, Enemy &e) {
     if (isTouchingRight(p)) {
         e.camMoveRight(p.velocity.x);
         p.position.x=origin.x+size.x/2-p.texSize.x/2;
+    }
+}
+
+void Camera::centerEntity(const Player &p, Entity& e) {
+    sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
+    if (p.velocity.x==0 && !isXCentered(p)) {
+        e.position.x-=(distance.x/125)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
+    }
+    if (p.velocity.y==0 && !isYCentered(p)) {
+        e.position.y-=(distance.y/125)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
+    }
+}
+
+
+
+void Camera::centerPlayer(Player &p) {
+    sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
+    if (p.velocity.x==0 && !isXCentered(p)) {
+        p.position.x-=(distance.x/125)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
+    }
+    if (p.velocity.y==0 && !isYCentered(p)) {
+        p.position.y-=(distance.y/125)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
     }
 }
