@@ -37,7 +37,7 @@ public:
 
     void playerReachedBoundary(Player& p, Tile& t) const;
     void playerReachedBoundary(Player& p, Enemy& e) const;
-    void centerEntity(const Player& p, Entity& e);
+    void moveEntityWhenCentering(const Player& p, Entity& e);
 
     void centerPlayer(Player &p);
 };

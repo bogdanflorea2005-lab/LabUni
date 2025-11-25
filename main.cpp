@@ -36,8 +36,6 @@ void changeRooms(Room& oldRoom, const std::string& newRoomId){\n
     }
 **/
 
-
-
 void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
     sf::Texture texture;
     texture.loadFromFile(imagePath);
@@ -109,9 +107,9 @@ int main()
         // c.centerEntity(p, tile5);
         //std::cout<<"reached second for\n";
         for (int i=0; i<5; i++) {
-            c.centerEntity(p, tiles[i]);
+            c.moveEntityWhenCentering(p, tiles[i]);
         }
-        c.centerEntity(p, e);
+        c.moveEntityWhenCentering(p, e);
 
 
         e.drawEnemy(window);

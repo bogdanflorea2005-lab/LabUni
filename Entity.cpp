@@ -86,7 +86,8 @@ bool Entity::isTouchingTop(Tile t) {
 
 bool Entity::isTouchingBottom(Tile t) {
     if (velocity.y>=0) {
-        if (position.y+texSize.y/2+velocity.y>t.position.y-t.texSize.y/2 && position.y<t.position.y-t.texSize.y/2 && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)){
+        if (position.y+texSize.y/2+velocity.y>t.position.y-t.texSize.y/2 && position.y<t.position.y-t.texSize.y/2
+            && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)){
             return true;
         }
     }
@@ -105,7 +106,9 @@ void Entity::checkCollision(Tile t) {
         }
     }
 
-    if(position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2 && position.y+texSize.y/2>=t.position.y-t.texSize.y/2-texSize.y/2+0.01) {
+    if(position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2
+        && position.y+texSize.y/2>=t.position.y-t.texSize.y/2-texSize.y/2+0.01
+        && t.position.y-t.texSize.y-texSize.y<=position.y-texSize.y/2) {
         if (isTouchingBottom(t)) {
         position=sf::Vector2f(position.x, t.position.y-t.texSize.y/2-texSize.y/2+0.01);
         velocity=sf::Vector2f(velocity.x, 0);

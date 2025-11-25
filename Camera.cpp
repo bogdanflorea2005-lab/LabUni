@@ -22,7 +22,7 @@ void Camera::drawCambox(sf::RenderWindow &window, const std::string texFile) {
     sprite.setPosition(sf::Vector2f(960, 540));
     //sprite.setScale(sf::Vector2f(1, 1));
     window.draw(sprite);
-    std::cout<<"x: "<<origin.x<<"y: "<<origin.y<<std::endl;
+    //std::cout<<"x: "<<origin.x<<"y: "<<origin.y<<std::endl;
 }
 
 bool Camera::isTouchingUpper(Player &p) const {
@@ -117,7 +117,7 @@ void Camera::playerReachedBoundary(Player &p, Enemy &e) const {
     }
 }
 
-void Camera::centerEntity(const Player &p, Entity& e) {
+void Camera::moveEntityWhenCentering(const Player &p, Entity& e) {
     sf::Vector2f distance=sf::Vector2f(abs(p.position.x-origin.x), abs(p.position.y-origin.y));
     if (p.velocity.x==0 && !isXCentered(p)) {
         e.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
@@ -134,7 +134,10 @@ void Camera::centerPlayer(Player &p) {
     if (p.velocity.x==0 && !isXCentered(p)) {
         p.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
     }
-    if (!isYCentered(p)) {
-        p.position.y-=(distance.y/110)*((p.position.y-origin.y)/abs(p.position.y-origin.y));
+
+    // std::cout<<"inCamera/centerPlayer\nisYCentered: "<<isYCentered(p)<<std::endl<<"yVelo: "<<(p.velocity.y>-2 && p.velocity.y<2)<<"\n";
+    // std::cout<<"\nif: "<<((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p))<<"\n";
+    if (p.velocity.y==0 && !isYCentered(p)) {
+        p.position.y-=(distance.y/110)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
     }
 }
