@@ -21,7 +21,7 @@ class Player;
 class Camera {
 private:
     sf::Vector2f origin;
-    const sf::Vector2u size=sf::Vector2u(300, 150);
+    const sf::Vector2u size=sf::Vector2u(300, 600);
 
     bool isTouchingUpper(Player& p) const;
     bool isTouchingLower(Player& p) const;

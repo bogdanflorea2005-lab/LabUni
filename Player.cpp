@@ -28,8 +28,8 @@ void Player::drawPlayer(sf::RenderWindow &window) {
 
 void Player::movement() {
 
-    // std::cout<<"in Player.cpp/movement()\nyVelo: "<<velocity.y<<"\nisGrounded: "<<isGrounded<<std::endl;
-
+    //std::cout<<"in Player.cpp/movement()\nyVelo: "<<velocity.y<<"\nisGrounded: "<<isGrounded<<std::endl;
+    gravity();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==0) {
         moveRight();
     }else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)==1 && sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)==0) {
@@ -41,7 +41,7 @@ void Player::movement() {
     if (isGrounded) {
         spaceTimer=0;
     }else {
-        gravity();
+
     }
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)==1 && (isGrounded==true || velocity.y<=0) && spaceTimer<15) {
