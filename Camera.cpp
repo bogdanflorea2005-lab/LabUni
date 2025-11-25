@@ -135,8 +135,8 @@ void Camera::centerPlayer(Player &p) {
         p.position.x-=(distance.x/110)*((p.position.x-origin.x)/abs((p.position.x-origin.x)));
     }
 
-    std::cout<<"inCamera/centerPlayer\nisYCentered: "<<isYCentered(p)<<std::endl<<"yVelo: "<<(p.velocity.y>-2 && p.velocity.y<2)<<"\n";
-    std::cout<<"\nif: "<<((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p))<<"\n";
+    // std::cout<<"inCamera/centerPlayer\nisYCentered: "<<isYCentered(p)<<std::endl<<"yVelo: "<<(p.velocity.y>-2 && p.velocity.y<2)<<"\n";
+    // std::cout<<"\nif: "<<((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p))<<"\n";
     if ((p.velocity.y>-2 && p.velocity.y<2) && !isYCentered(p)) {
         p.position.y-=(distance.y/110)*((p.position.y-origin.y)/abs((p.position.y-origin.y)));
     }
