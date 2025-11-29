@@ -4,6 +4,8 @@
 
 #ifndef OOP_TILE_H
 #define OOP_TILE_H
+#include <iostream>
+
 #include "Entity.h"
 
 
@@ -20,6 +22,10 @@ public:
     Tile &operator=(Tile * tile);
 
     Tile()=default;
+
+    ~Tile() {
+        //std::cout<<"deleted a tile\n\n";
+    };
 
     Tile(const std::string filePath, float x, float y, int tileID);
 

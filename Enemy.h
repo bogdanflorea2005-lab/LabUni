@@ -15,6 +15,7 @@ class Enemy: public Entity {
 private:
 
 public:
+    Enemy()=default;
     Enemy(const std::string &filePath, float x, float y);
 
     void camMoveLeft(float velo);
@@ -25,6 +26,8 @@ public:
     void drawEnemy(sf::RenderWindow &window);
 
     void seekPlayer(Player& p);
+
+    Enemy &operator=(Enemy* enemy);
 
 };
 

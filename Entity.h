@@ -41,7 +41,7 @@ protected:
 public:
     virtual ~Entity() = default;
 
-    void checkCollision(Tile t);
+    void checkCollision(Tile& t);
     friend class Enemy;
     friend class Camera;
 };

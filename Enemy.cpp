@@ -53,3 +53,9 @@ void Enemy::seekPlayer(Player& p) {
     }
 }
 
+Enemy & Enemy::operator=(Enemy *enemy) {
+    this->position=sf::Vector2f(enemy->position.x, enemy->position.y);
+    this->texture=enemy->texture;
+    return *this;
+}
+

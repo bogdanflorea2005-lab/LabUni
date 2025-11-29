@@ -94,7 +94,7 @@ bool Entity::isTouchingBottom(Tile t) {
     return false;
 }
 
-void Entity::checkCollision(Tile t) {
+void Entity::checkCollision(Tile& t) {
     if(position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2) {
         if (isTouchingLeft(t)) {
             position=sf::Vector2f(t.position.x-t.texSize.x/2-texSize.x/2, position.y);

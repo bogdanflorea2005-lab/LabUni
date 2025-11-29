@@ -20,11 +20,12 @@ void Tile::moveDown(float velo) {
     position.y-=velo;
 }
 
-Tile & Tile::operator=(Tile *tile) {
+Tile &Tile::operator=(Tile *tile) {
     this->position=sf::Vector2f(tile->position.x, tile->position.y);
     this->texture=tile->texture;
     this->texSize=tile->texture.getSize();
     this->tileID=tile->tileID;
+    return *this;
 }
 
 Tile::Tile(const std::string filePath, float x, float y, int tileID){
