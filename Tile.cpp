@@ -4,6 +4,10 @@
 
 #include "Tile.h"
 
+#include "TextureLoadingError.h"
+
+class TextureLoadingError;
+
 void Tile::moveLeft(float velo) {
     position.x-=velo;
 }
@@ -29,17 +33,37 @@ Tile &Tile::operator=(Tile *tile) {
 }
 
 Tile::Tile(const std::string filePath, float x, float y, int tileID){
-    if (!texture.loadFromFile(filePath)) {
-        std::cout<<"Texture loading failed\n";
-        texture.loadFromFile("Textures/Lbozo.png");
+    // std::cout<<"creating a tile\n\n";
+    try {
+
+        if (!texture.loadFromFile(filePath)) {
+            throw TextureLoadingError(filePath);
+        }
+        texSize=texture.getSize();
+        position.x = x;
+        position.y = y;
+        this->tileID=tileID;
+
+    }catch (TextureLoadingError texErr) {
+        try {
+
+            if (!texture.loadFromFile("Textures/Lbozo.png")) {
+                throw TextureLoadingError("Textures/Lbozo.png");
+            }
+            texSize=texture.getSize();
+            position.x = x;
+            position.y = y;
+            this->tileID=tileID;
+
+        }catch (TextureLoadingError severeTexErr) {
+            std::cerr<<"error image has an error :/\n";
+        }
     }
-    texSize=texture.getSize();
-    position.x = x;
-    position.y = y;
-    this->tileID=tileID;
+
 }
 
 Tile::Tile(const Tile &t)  {
+    // std::cout<<"creating a tile\n\n";
     position = t.position;
     texture = t.texture;
     texSize = t.texSize;
@@ -47,6 +71,7 @@ Tile::Tile(const Tile &t)  {
 }
 
 Tile::Tile(const Tile &t, float x, float y, int tileID) {
+    // std::cout<<"creating a tile\n\n";
     position=sf::Vector2f(x, y);
     texture=t.texture;
     texSize=texture.getSize();

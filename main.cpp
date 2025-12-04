@@ -50,13 +50,14 @@ void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
 
 
 int main() {
+    Room room("test");
 
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
     std::string filePath1="Textures/placeholder.png";
     Player p(filePath1, window.getSize().x/2, window.getSize().y/2);
     Camera c(sf::Vector2f(window.getSize().x, window.getSize().y));
-    Room room("tes");
+
 
     room.drawRoom(window, p, c);
 

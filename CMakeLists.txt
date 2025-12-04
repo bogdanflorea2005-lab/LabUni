@@ -77,6 +77,10 @@ add_executable(${MAIN_EXECUTABLE_NAME}
         Room.h
         roomIDError.cpp
         roomIDError.h
+        TextureLoadingError.cpp
+        TextureLoadingError.h
+        OutOfBoundsError.cpp
+        PlayerOutOfBoundsError.h
 )
 
 target_link_libraries(${MAIN_EXECUTABLE_NAME}

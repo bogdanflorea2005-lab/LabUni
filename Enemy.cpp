@@ -5,6 +5,7 @@
 #include "Enemy.h"
 
 #include "Player.h"
+#include "TextureLoadingError.h"
 
 void Enemy::moveLeft() {
     velocity.x += 0.25;
@@ -43,13 +44,29 @@ void Enemy::stopMovement() {
 }
 
 Enemy::Enemy(const std::string &filePath, float x, float y)  {
-    if (!texture.loadFromFile(filePath)) {
-        std::cout<<"Texture loading failed\n";
-        texture.loadFromFile("Textures/Lbozo.png");
+    // std::cout<<"creating an enemy\n\n";
+    try {
+
+        if (!texture.loadFromFile(filePath)) {
+            throw TextureLoadingError(filePath);
+        }
+        texSize=texture.getSize();
+        position.x=x;
+        position.y=y;
+
+    }catch (TextureLoadingError texErr) {
+        try {
+            if (!texture.loadFromFile("Textures/Lbozo.png")) {
+                throw TextureLoadingError("Textures/Lbozo.png");
+            }
+            texSize=texture.getSize();
+            position.x=x;
+            position.y=y;
+        }catch (TextureLoadingError severeTexErr) {
+            std::cerr<<"error image has an error :/\n";
+
+        }
     }
-    texSize=texture.getSize();
-    position.x=x;
-    position.y=y;
 }
 
 void Enemy::camMoveLeft(float velo) {

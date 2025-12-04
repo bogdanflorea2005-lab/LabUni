@@ -40,7 +40,7 @@ protected:
     bool isTouchingBottom(Tile t);
 public:
     virtual ~Entity() {
-        std::cout<<"deleted an entity\n";
+        // std::cout<<"deleted an entity\n";
     };
 
 

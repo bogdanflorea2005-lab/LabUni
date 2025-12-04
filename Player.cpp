@@ -6,6 +6,23 @@
 
 #include <iostream>
 
+#include "TextureLoadingError.h"
+
+void Player::setPosition(sf::Vector2f pos) {
+    position.x=pos.x;
+    position.y=pos.y;
+}
+
+sf::Vector2f Player::getPosition() {
+    return sf::Vector2f(position.x, position.y);
+}
+
+sf::Vector2f Player::getVelocity() {
+    // std::cout<<"X: "<<velocity.x<<std::endl;
+    // std::cout<<"Y: "<<velocity.y<<std::endl;
+    return sf::Vector2f(velocity.x, velocity.y);
+}
+
 void Player::moveLeft() {
     velocity.x += 0.25;
     if (velocity.x>=6) {
@@ -48,13 +65,31 @@ void Player::jump() {
 }
 
 Player::Player(const std::string &filePath, float x, float y) {
-    if (!texture.loadFromFile(filePath)) {
-        std::cout<<"Texture loading failed\n";
-        texture.loadFromFile("Textures/Lbozo.png");
+    // std::cout<<"creating a player\n\n";
+    try {
+
+        if (!texture.loadFromFile(filePath)) {
+            throw TextureLoadingError(filePath);
+        }
+        texSize=texture.getSize();
+        position.x=x;
+        position.y=y;
+
+    }catch (TextureLoadingError texErr) {
+        try {
+
+            if (!texture.loadFromFile("Textures/Lbozo.png")) {
+                throw TextureLoadingError("Textures/Lbozo.png");
+            }
+            texSize=texture.getSize();
+            position.x=x;
+            position.y=y;
+
+        }catch (TextureLoadingError severeTexErr) {
+            std::cerr<<"error image has an error :/\n";
+        }
     }
-    texSize=texture.getSize();
-    position.x=x;
-    position.y=y;
+
 }
 
 void Player::drawPlayer(sf::RenderWindow &window) {

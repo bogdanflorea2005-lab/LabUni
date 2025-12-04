@@ -23,7 +23,7 @@ private:
 public:
     Enemy()=default;
     ~Enemy() {
-        std::cout<<"deleted an enemy\n";
+        // std::cout<<"deleted an enemy\n";
     }
     Enemy(const std::string &filePath, float x, float y);
 
