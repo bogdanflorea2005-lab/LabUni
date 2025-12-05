@@ -15,6 +15,9 @@ class Player;
 
 class Enemy: public Entity {
 private:
+
+
+
     void moveLeft() override;
     void moveRight() override;
     void gravity() override;
@@ -36,7 +39,12 @@ public:
 
     void seekPlayer(Player& p);
 
+    friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
+
+
     Enemy &operator=(Enemy* enemy);
+
+    friend class Room;
 
 };
 

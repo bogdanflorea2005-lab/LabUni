@@ -7,12 +7,17 @@
 #include <iostream>
 
 #include "Entity.h"
+#include "Camera.h"
+#include "Enemy.h"
+#include "Tile.h"
 #include "SFML/Graphics.hpp"
 
 
 class Player: public Entity {
 private:
     int spaceTimer=0;
+    static int enemiesKilled;
+    std::string currentRoom;
 
     void moveLeft() override;
     void moveRight() override;
@@ -23,6 +28,9 @@ private:
     void setPosition(sf::Vector2f pos);
     sf::Vector2f getPosition();
     sf::Vector2f getVelocity();
+
+    void setCurrentRoom(const std::string& roomID);
+    std::string getCurrentRoom();
 
 public:
     Player(const std::string &filePath, float x, float y);
@@ -39,6 +47,10 @@ public:
     void movement();
 
     Player &operator=(Player * player);
+
+    static void tempAttack(Enemy& e);
+
+    friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
 
     friend class Enemy;
     friend class Camera;

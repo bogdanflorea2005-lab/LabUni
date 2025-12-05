@@ -10,9 +10,9 @@
 #include <stdexcept>
 
 
-class TextureLoadingError: public std::runtime_error {
+class TextureLoadingError: public std::exception {
 public:
-    TextureLoadingError(std::string filePath) : runtime_error("TextureLoadingError") {
+    TextureLoadingError(std::string filePath) {
         std::cerr<<"ERROR LOADING TEXTURE FROM FILE: "<<filePath<<std::endl;
     } ;
 };

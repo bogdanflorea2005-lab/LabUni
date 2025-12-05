@@ -7,11 +7,17 @@
 #include <iostream>
 
 #include "Entity.h"
+#include "Camera.h"
+#include "Enemy.h"
 
+
+class Player;
 
 class Tile: public Entity{
 private:
     int tileID=0;
+
+
 
 public:
     void moveLeft(float velo);
@@ -43,7 +49,11 @@ public:
 
     }
 
+    friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
+
+
     friend class Entity;
+    friend class Room;
     friend class Camera;
 };
 

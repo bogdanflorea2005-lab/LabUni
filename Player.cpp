@@ -23,6 +23,14 @@ sf::Vector2f Player::getVelocity() {
     return sf::Vector2f(velocity.x, velocity.y);
 }
 
+void Player::setCurrentRoom(const std::string& roomID) {
+    currentRoom=roomID;
+}
+
+std::string Player::getCurrentRoom() {
+    return currentRoom;
+}
+
 void Player::moveLeft() {
     velocity.x += 0.25;
     if (velocity.x>=6) {
@@ -132,4 +140,8 @@ Player & Player::operator=(Player *player) {
     isGrounded=player->isGrounded;
 
     return *this;
+}
+
+void Player::tempAttack(Enemy &e) {
+    //temporary attack to check if static enemy kill counter works
 }

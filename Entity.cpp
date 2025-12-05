@@ -22,7 +22,7 @@ void Entity::attack() {
     //will add sth once I make a "Projectile class"
 }
 
-bool Entity::isTouchingLeft(Tile t) {
+bool Entity::isTouchingLeft(Tile t) const {
     if (velocity.x>0) {
         if (position.x+texSize.x/2+velocity.x>t.position.x-t.texSize.x/2 && position.x<t.position.x-t.texSize.x/2 && (position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2)) {
             return true;
@@ -31,7 +31,7 @@ bool Entity::isTouchingLeft(Tile t) {
     return false;
 }
 
-bool Entity::isTouchingRight(Tile t) {
+bool Entity::isTouchingRight(Tile t) const {
     if (velocity.x<0) {
         if (position.x-texSize.x/2+velocity.x<t.position.x+t.texSize.x/2 && position.x>t.position.x+t.texSize.x/2 && (position.y>t.position.y-t.texSize.y/2 && position.y-texSize.y/2<t.position.y+t.texSize.y/2)) {
             return true;
@@ -40,7 +40,7 @@ bool Entity::isTouchingRight(Tile t) {
     return false;
 }
 
-bool Entity::isTouchingTop(Tile t) {
+bool Entity::isTouchingTop(Tile t) const {
     if (velocity.y<0) {
         if (position.y>t.position.y+t.texSize.y/2 && position.y-texSize.y/2+velocity.y<t.position.y+t.texSize.y/2 && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)) {
             return true;
@@ -49,7 +49,7 @@ bool Entity::isTouchingTop(Tile t) {
     return false;
 }
 
-bool Entity::isTouchingBottom(Tile t) {
+bool Entity::isTouchingBottom(Tile t) const {
     if (velocity.y>=0) {
         if (position.y+texSize.y/2+velocity.y>t.position.y-t.texSize.y/2 && position.y<t.position.y-t.texSize.y/2
             && (position.x+texSize.x/2>t.position.x-t.texSize.x/2 && position.x-texSize.x/2<t.position.x+t.texSize.x/2)){

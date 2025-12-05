@@ -30,19 +30,20 @@ Room::Room(std::string roomID) {
      where the file name will also be the room's ID
      **/
         if (roomID == "test") {
+            Player::enemiesKilled=0;
             tileNum=5;
             enemyNum=2;
             roomSize=sf::Vector2f(2000, 2000);
             roomCentre=sf::Vector2f(roomSize.x/2, roomSize.y/2);
-            checkpointPos=sf::Vector2f(1000, 400);
+            checkpointPos=roomCentre;
             std::string tilePath ="Textures/placeholderTile.png";
             std::string tilePath2 ="Textures/placeholderTile2.png";
             std::string enemyPath = "Textures/placeholderEnemy.png";
             tiles[0]=new Tile(tilePath, 300, 500, 1);
             tiles[1]=new Tile(tiles[0], 1100, 450, 2);
-            tiles[2]=new Tile(tilePath2, 450, 850, 3);
-            tiles[3]=new Tile(tiles[2], 450+555, 850, 4);
-            tiles[4]=new Tile(tiles[3], 450+555+555, 650, 5);
+            tiles[2]=new Tile(tilePath2, 450, 1050, 3);
+            tiles[3]=new Tile(tiles[2], 450+555, 1050, 4);
+            tiles[4]=new Tile(tiles[3], 450+555+555, 850, 5);
             enemies[0]=new Enemy(enemyPath, 1500, 200);
             enemies[1]=new Enemy(enemyPath, 300, 150);
         }else {
@@ -59,7 +60,7 @@ Room::Room(std::string roomID) {
 
 void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
     if (hasError) {
-        std::string errFile="Textures/ThatFuckinFuckThatIHate.png";
+        std::string errFile="Textures/CustomErrorImg.png";
         sf::Texture err;
         try {
             if (!err.loadFromFile(errFile)) {
@@ -90,6 +91,7 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
         camera.setOrigin(sf::Vector2f(window.getSize().x/2, window.getSize().y/2));
 
         std::cout<<"tileNum: "<<tileNum<<std::endl<<"enemyNum: "<<enemyNum<<"\n";
+        float xCoord=roomCentre.x, yCoord=roomCentre.y;
         while (window.isOpen()) {
             while (const std::optional event = window.pollEvent())
                 if (event->is<sf::Event::Closed>())
@@ -98,13 +100,20 @@ void Room::drawRoom(sf::RenderWindow &window, Player& player, Camera& camera) {
             window.clear();
 
             try {
-                float xCoord=roomCentre.x+p->getVelocity().x, yCoord=roomCentre.y+p->getVelocity().y;
-                //std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<xCoord<<"\nY: "<<yCoord<<std::endl;
+                xCoord+=p->getVelocity().x;
+                yCoord+=p->getVelocity().y;
+                checkpointPos.x-=p->getVelocity().x;
+                checkpointPos.y-=p->getVelocity().y;
+                std::cout<<"In room.cpp/drawRoom():\nCoords:\nX: "<<xCoord<<"\nY: "<<yCoord<<std::endl;
                 if (xCoord>roomSize.x || xCoord<(-1)*roomSize.x || yCoord>roomSize.y || yCoord<(-1)*roomSize.y) {
                     throw PlayerOutOfBoundsError(*p, p->getPosition());
                 }
             }catch (PlayerOutOfBoundsError boundErr) {
                 p->setPosition(checkpointPos);
+                checkpointPos=roomCentre;
+                p->velocity=sf::Vector2f(0, 0);
+                xCoord=roomCentre.x;
+                yCoord=roomCentre.y;
             }
 
             camera.drawCambox(window, "Textures/CameraSize.png");

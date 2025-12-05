@@ -11,9 +11,9 @@
 #include "Player.h"
 
 
-class PlayerOutOfBoundsError: public std::runtime_error {
+class PlayerOutOfBoundsError: public std::exception {
 public:
-    PlayerOutOfBoundsError(Player& p, sf::Vector2f position) : runtime_error("Player out of bounds\n") {
+    PlayerOutOfBoundsError(Player& p, sf::Vector2f position) {
         std::cerr << "You managed to get out of bounds. Sorry about that...\n";
     } ;
 };

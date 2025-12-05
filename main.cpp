@@ -7,7 +7,11 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "Room.h"
+#include "PlayerOutOfBoundsError.h"
 #include "Tile.h"
+
+#include "RoomIDError.h"
+#include "TextureLoadingError.h"
 
 
 /**
@@ -50,7 +54,7 @@ void displayImage(sf::RenderWindow& w, const std::string& imagePath) {
 
 
 int main() {
-    Room room("tes");
+    Room room("test");
 
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
     window.setFramerateLimit(144);
@@ -64,7 +68,8 @@ int main() {
     return 0;
 }
 
-/*int main()
+/*
+int main()
 {
     //for "Room" class, consider smart pointers for deallocation
     auto window = sf::RenderWindow(sf::VideoMode({1920u, 1080u}), "CMake SFML Project");
@@ -94,6 +99,8 @@ int main() {
     //std::cout<<"after giving tile info\n";
 
     Enemy e(enemyPath, 1500, 200);
+    Enemy enemies[1];
+    enemies[0]=e;
 
 
     while (window.isOpen())
@@ -130,13 +137,13 @@ int main() {
         c.moveEntityWhenCentering(p, e);
 
 
-        e.drawEnemy(window);
-        e.seekPlayer(p);
+        enemies[0].drawEnemy(window);
+        enemies[0].seekPlayer(p);
         //std::cout<<"reached third for\n";
         for (int i=0; i<5; i++) {
             tiles[i].drawTile(window);
             p.checkCollision(tiles[i]);
-            e.checkCollision(tiles[i]);
+            enemies[0].checkCollision(tiles[i]);
         }
         // tile.drawTile(window);
         // tile2.drawTile(window);
@@ -160,4 +167,5 @@ int main() {
         window.display();
     }
     return 0;
-}*/
+}
+*/

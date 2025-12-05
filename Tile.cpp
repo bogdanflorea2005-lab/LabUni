@@ -8,6 +8,7 @@
 
 class TextureLoadingError;
 
+
 void Tile::moveLeft(float velo) {
     position.x-=velo;
 }

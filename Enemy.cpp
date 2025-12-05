@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "TextureLoadingError.h"
 
+
+
 void Enemy::moveLeft() {
     velocity.x += 0.25;
     if (velocity.x>=6) {
@@ -43,7 +45,7 @@ void Enemy::stopMovement() {
     position.x+=velocity.x;
 }
 
-Enemy::Enemy(const std::string &filePath, float x, float y)  {
+Enemy::Enemy(const std::string &filePath, float x, float y): Entity()  {
     // std::cout<<"creating an enemy\n\n";
     try {
 

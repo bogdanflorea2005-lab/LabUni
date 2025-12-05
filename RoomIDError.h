@@ -10,9 +10,9 @@
 #include "Room.h"
 
 
-class RoomIDError: public std::runtime_error {
+class RoomIDError: public std::exception {
     public:
-    RoomIDError(std::string roomID) : std::runtime_error("RoomIDError") {
+    RoomIDError(std::string roomID) {
         std::cerr<<"ERROR WHEN LOADING ROOM! Inserted ID is: "<<roomID<<", which is invalid!\n";
     }
 

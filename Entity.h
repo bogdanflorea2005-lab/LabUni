@@ -34,10 +34,10 @@ protected:
 
     virtual void attack();
 
-    bool isTouchingLeft(Tile t);
-    bool isTouchingRight(Tile t);
-    bool isTouchingTop(Tile t);
-    bool isTouchingBottom(Tile t);
+    bool isTouchingLeft(Tile t) const;
+    bool isTouchingRight(Tile t) const;
+    bool isTouchingTop(Tile t) const;
+    bool isTouchingBottom(Tile t) const;
 public:
     virtual ~Entity() {
         // std::cout<<"deleted an entity\n";

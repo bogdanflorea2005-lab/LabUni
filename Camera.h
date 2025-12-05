@@ -43,6 +43,8 @@ public:
 
     void centerPlayer(Player &p);
 
+    friend void drawRoom(sf::RenderWindow& window, Player& p, Camera& c, Tile tiles[], int& tileNum, Enemy enemies[], int& enemyNum);
+
     friend class Room;
 };
 
