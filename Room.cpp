@@ -50,7 +50,8 @@ Room::Room(const std::string& roomID, sf::RenderWindow& window) {
                 /*
                 Ok, so, I don't know why, but doing sth like this makes the enemies work, but enemies[i]=new Enemy(data) makes them noclip.
                 This means that I will have to fill my enemies[] vector through a locally declared Enemy, instead of re-instantiating them using 'new'.
-                That might be caused by a faulty implementation of op= override or cc override, though I don't know why or how that would affect tile collision...
+                That might be caused by a faulty implementation of op= override or cc override, though I don't know why or how that would affect tile collision,
+                especially when it works fine for tiles...
                 */
                 Enemy e1(enemyPath, 1500, 200);
                 Enemy e2(enemyPath, 300, 150);

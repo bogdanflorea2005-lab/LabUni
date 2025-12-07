@@ -33,7 +33,7 @@ Tile &Tile::operator=(Tile *tile) {
     return *this;
 }
 
-Tile::Tile(const std::string filePath, float x, float y, int tileID){
+Tile::Tile(const std::string& filePath, float x, float y, int tileID){
     // std::cout<<"creating a tile\n\n";
     try {
 
@@ -45,7 +45,7 @@ Tile::Tile(const std::string filePath, float x, float y, int tileID){
         position.y = y;
         this->tileID=tileID;
 
-    }catch (TextureLoadingError texErr) {
+    }catch (TextureLoadingError& texErr) {
         try {
 
             if (!texture.loadFromFile("Textures/Lbozo.png")) {
@@ -56,7 +56,7 @@ Tile::Tile(const std::string filePath, float x, float y, int tileID){
             position.y = y;
             this->tileID=tileID;
 
-        }catch (TextureLoadingError severeTexErr) {
+        }catch (TextureLoadingError& severeTexErr) {
             std::cerr<<"error image has an error :/\n";
         }
     }
